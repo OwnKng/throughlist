@@ -9,10 +9,7 @@ const Form = styled.form`
   grid-template: 1fr / 0.5fr 5fr;
   background-color: white;
   height: 70px;
-  border: 2px solid rgb(50, 50, 50);
-  border-top: none;
-  border-left: none;
-  border-right: none;
+  border-bottom: 2px solid rgb(50, 50, 50);
 `;
 
 const Input = styled.input`

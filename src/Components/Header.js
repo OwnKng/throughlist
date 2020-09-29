@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Navigation from "./Navigation";
 
 const HeaderBar = styled.header`
   width: 100%;
@@ -26,6 +27,7 @@ const Header = () => {
   return (
     <HeaderBar>
       <LogoText>To Do</LogoText>
+      <Navigation />
     </HeaderBar>
   );
 };

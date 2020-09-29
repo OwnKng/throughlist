@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useQuery, gql, useMutation, useApolloClient } from "@apollo/client";
 
-import ToDosList from "../Components/ToDosList";
-import AddToDo from "../Components/AddToDo";
+import ToDosList from "./ToDosList";
+import AddToDo from "./AddToDo";
 import styled from "styled-components";
-import SortBy from "../Components/SortBy";
-import TagsList from "../Components/TagsList";
+import SortBy from "./SortBy";
+import TagsList from "./TagsList";
 
 const GET_TODOS = gql`
   query ToDoFeed($cursor: String) {
@@ -59,10 +59,9 @@ const IS_SORTED = gql`
 `;
 
 const ToDoResults = styled.div`
-  width: 100%;
-  min-width: 480px;
+  min-width: 400px;
   max-width: 720px;
-  justify-self: left;
+  flex-grow: 1;
 `;
 
 const List = styled.div`
@@ -71,12 +70,14 @@ const List = styled.div`
 `;
 
 const Container = styled.div`
-  display: grid;
-  grid-template: 1fr / 1fr 4fr;
-  justify-items: center;
-  grid-gap: 10px;
-  margin: 0px auto;
-  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+`;
+
+const Title = styled.div`
+  text-align: center;
 `;
 
 const ToDos = () => {
@@ -102,28 +103,25 @@ const ToDos = () => {
     },
   });
 
-  const [NewToDo, { loadingSession, errorCreatingSession }] = useMutation(
-    ADD_TODO,
-    {
-      onCompleted: (data) => {
-        refetch();
-      },
-    }
-  );
-
-  const [completeToDo, { errorCompleting }] = useMutation(COMPLETE_TODO, {
+  const [NewToDo] = useMutation(ADD_TODO, {
     onCompleted: (data) => {
       refetch();
     },
   });
 
-  const [addDate, { errorAddingDate }] = useMutation(ADD_DATE, {
+  const [completeToDo] = useMutation(COMPLETE_TODO, {
     onCompleted: (data) => {
       refetch();
     },
   });
 
-  const [toggleUrgent, { errorMarkingUrgent }] = useMutation(TOGGLE_URGENT, {
+  const [addDate] = useMutation(ADD_DATE, {
+    onCompleted: (data) => {
+      refetch();
+    },
+  });
+
+  const [toggleUrgent] = useMutation(TOGGLE_URGENT, {
     onCompleted: (data) => {
       refetch();
     },

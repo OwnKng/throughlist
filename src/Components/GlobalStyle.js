@@ -11,11 +11,6 @@ html, body {
     box-sizing: border-box;
   }
 
-  main {
-    height: 100%;
-    margin: 0px;
-  }
-
   body {
     background-color: rgb(247, 247, 247);
     color: rgb(0, 0, 0);

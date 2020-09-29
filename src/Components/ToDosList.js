@@ -16,11 +16,13 @@ const Row = styled.div`
   :hover {
     background-color: rgb(250, 250, 250);
   }
+
   display: grid;
   grid-template: 1fr / 1fr 6fr 2fr 2fr 1fr 0.5fr;
   text-align: left;
   align-items: center;
   color: rgb(50, 50, 50);
+  grid-gap: 5px;
 
   .cal {
     font-size: 1.25rem;
@@ -75,12 +77,6 @@ const MarkUrgent = styled.div``;
 
 const ToDoList = ({ toDos, completeToDo, addDate, toggleUrgent }) => {
   const [active, setActive] = useState();
-  const transitions = useTransition(toDos, (toDo) => toDo.id, {
-    from: { transform: "translate3d(0,-50px,0)", opacity: 0 },
-    enter: { transform: "translate3d(0,0px,0)", opacity: 1, zIndex: 1 },
-    leave: { transform: "translate3d(0,50px,0)", opacity: 0 },
-    config: { duration: 200 },
-  });
 
   const formatDate = (date) => {
     if (!date) return "";

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useMutation, useApolloClient, gql, useQuery } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import { FaArrowRight } from "react-icons/fa";
 
 const SIGNUP_USER = gql`
   mutation signUp($email: String!, $password: String!) {
@@ -84,7 +83,7 @@ const SignUp = () => {
   const client = useApolloClient();
 
   const { data } = useQuery(IS_LOGGED_IN);
-  if (data.isLoggedIn) history.push("/todos");
+  if (data.isLoggedIn) history.push("/");
 
   const [signUp, { loading, error }] = useMutation(SIGNUP_USER, {
     onCompleted: (data) => {

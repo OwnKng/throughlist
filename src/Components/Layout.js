@@ -8,7 +8,7 @@ const Wrapper = styled.div`
     display: flex;
     top: 64px;
     position: relative;
-    height: calc(100% - 64px);
+    height: calc(100% - 120px);
     width: 100%;
     flex: auto;
     flex-direction: column;
@@ -21,10 +21,8 @@ const Main = styled.main`
   width: 100%;
   padding: 1em;
   overflow-y: scroll;
-  @media (min-width: 700px) {
-    margin-left: 220px;
-    height: calc(100% - 64px);
-    width: calc(100% - 220px);
+  @media (max-width: 700px) {
+    margin-top: 64px;
   }
 `;
 
@@ -33,7 +31,6 @@ const Layout = ({ children }) => {
     <>
       <Header />
       <Wrapper>
-        <Navigation />
         <Main>{children}</Main>
       </Wrapper>
     </>
@@ -41,3 +38,5 @@ const Layout = ({ children }) => {
 };
 
 export default Layout;
+
+// <Navigation />

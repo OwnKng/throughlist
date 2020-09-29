@@ -11,23 +11,20 @@ const IS_LOGGED_IN = gql`
 `;
 
 const Nav = styled.nav`
-padding: 1em; 
-background-color: rgb(255, 255, 255);
-@media (max-width: 700px) {
-  padding-top 64px;
-}
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
 
-@media (min-width: 700px) {
-  position: fixed;
-  width: 220px;
-  height: calc(100% - 64px);
-  overflow-y: scroll;
-};
+  li {
+    display: inline-block;
+    margin-left: 30px;
+  }
 `;
 
 const NavList = styled.ul`
-  margin: 0;
-  padding: 0;
+  text-align: right;
   list-style: none;
   line-height: 2;
 
@@ -47,6 +44,8 @@ const NavList = styled.ul`
   }
 
   p {
+    padding: 0px;
+    margin: 0px;
     text-decoration: none;
     font-size: 1.1em;
     color: rgb(50, 50, 50);
@@ -65,15 +64,6 @@ const Navigation = () => {
   return (
     <Nav>
       <NavList>
-        <li>
-          <Link to='/todos'>To Dos</Link>
-        </li>
-        <li>
-          <Link to='/completed'>Completed</Link>
-        </li>
-        <li>
-          <Link to='/profile'>Profile</Link>
-        </li>
         {data.isLoggedIn ? (
           <li
             onClick={() => {
@@ -97,3 +87,20 @@ const Navigation = () => {
 };
 
 export default Navigation;
+
+/*
+
+padding: 1em; 
+background-color: rgb(255, 255, 255);
+@media (max-width: 700px) {
+  padding-top 64px;
+}
+
+@media (min-width: 700px) {
+  position: fixed;
+  width: 220px;
+  height: calc(100% - 64px);
+  overflow-y: scroll;
+};
+
+*/

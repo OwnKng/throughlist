@@ -5,6 +5,7 @@ export const GlobalStyles = createGlobalStyle`
 html, body {
     margin: 0;
     padding: 0;
+    height: 100vh;
   }
 
   *, *::after, *::before {
@@ -12,13 +13,28 @@ html, body {
   }
 
   body {
-    background-color: rgb(247, 247, 247);
-    color: rgb(0, 0, 0);
+    background: ${({ theme }) => theme.background};
+    color: ${({ theme }) => theme.text};
     font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    transition: all 0.25s linear;
  }
 
  input {
   font-family: 'Roboto', sans-serif;
  }
+
+ li {
+   color: ${({ theme }) => theme.text}
+ }
+
+ li:hover {
+  color: ${({ theme }) => theme.textHover}
+ }
+
+ .tag {
+   color: ${({ theme }) => theme.secondaryText};
+ }
+
 
 `;

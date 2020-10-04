@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { gql, useQuery } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+import { useDarkMode } from "./ThemeProvider";
 
 const IS_LOGGED_IN = gql`
   {
@@ -27,43 +28,18 @@ const NavList = styled.ul`
   text-align: right;
   list-style: none;
   line-height: 2;
-
-  a {
-    text-decoration: none;
-    font-size: 1.1em;
-    color: rgb(50, 50, 50);
-  }
-
-  a:visited {
-    color: rgb(50, 50, 50);
-  }
-
-  a:hover,
-  a:focus {
-    color: #0077cc;
-  }
-
-  p {
-    padding: 0px;
-    margin: 0px;
-    text-decoration: none;
-    font-size: 1.1em;
-    color: rgb(50, 50, 50);
-  }
-
-  p:hover,
-  p:focus {
-    color: #0077cc;
-  }
 `;
 
 const Navigation = () => {
   const { data, client } = useQuery(IS_LOGGED_IN);
   let history = useHistory();
 
+  const { toggleTheme } = useDarkMode();
+
   return (
     <Nav>
       <NavList>
+        <li onClick={() => toggleTheme()}>Toggle Theme</li>
         {data.isLoggedIn ? (
           <li
             onClick={() => {

@@ -4,8 +4,10 @@ import { useQuery, gql, useMutation, useApolloClient } from "@apollo/client";
 import ToDosList from "./ToDosList";
 import AddToDo from "./AddToDo";
 import styled from "styled-components";
-import SortBy from "./SortBy";
+import ToDoListHeader from "./ToDoListHeader";
 import TagsList from "./TagsList";
+import Calendar from "./Calendar";
+import { ToDoResults } from "./Styled/ToDoResults";
 
 const GET_TODOS = gql`
   query ToDoFeed($cursor: String) {
@@ -58,26 +60,21 @@ const IS_SORTED = gql`
   }
 `;
 
-const ToDoResults = styled.div`
-  min-width: 400px;
+const Container = styled.div`
   max-width: 720px;
-  flex-grow: 1;
+  display: grid;
+  height: calc(100vh - 100px);
+  grid-template-rows: 4fr 1fr;
+  grid-template-areas:
+    "list"
+    "input";
+  margin: 0px auto;
+  padding: 0em 2em;
 `;
 
 const List = styled.div`
-  box-shadow: 0 5px 5px 0 rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
-`;
-
-const Container = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-`;
-
-const Title = styled.div`
-  text-align: center;
+  grid-area: list;
+  height: 100%;
 `;
 
 const ToDos = () => {
@@ -86,6 +83,8 @@ const ToDos = () => {
 
   const [tags, setTags] = useState([]);
   const [activeTag, setActiveTag] = useState(false);
+  const [openDate, toggleDate] = useState(false);
+  const [activeToDo, setActive] = useState();
 
   const { data, loading, error, refetch, fetchmore } = useQuery(GET_TODOS, {
     notifyOnNetworkStatusChange: true,
@@ -162,30 +161,46 @@ const ToDos = () => {
     return isSorted ? sortByDate(toDos) : toDos;
   };
 
+  const toggleCalendar = () => {
+    if (openDate)
+      return (
+        <Calendar
+          toggleDate={() => toggleDate(!openDate)}
+          addDate={addDate}
+          activeToDo={activeToDo}
+        />
+      );
+  };
+
   return (
     <>
+      {toggleCalendar()}
       <Container>
-        <TagsList
-          tags={tags}
-          activeTag={activeTag}
-          setActiveTag={setActiveTag}
-        />
-        <ToDoResults>
-          <SortBy isSorted={isSorted} sort={() => toggleSorted()}></SortBy>
-          <AddToDo newToDo={NewToDo} />
-          {ToDosData.length ? (
-            <List>
+        <List>
+          <TagsList
+            tags={tags}
+            activeTag={activeTag}
+            setActiveTag={setActiveTag}
+          />
+          <ToDoListHeader
+            isSorted={isSorted}
+            sort={() => toggleSorted()}
+          ></ToDoListHeader>
+          <ToDoResults>
+            {ToDosData.length ? (
               <ToDosList
                 toDos={sortToDos()}
                 completeToDo={completeToDo}
-                addDate={addDate}
+                toggleDate={() => toggleDate(!openDate)}
                 toggleUrgent={toggleUrgent}
+                setActive={setActive}
               />
-            </List>
-          ) : (
-            <p style={{ textAlign: "center" }}>You're all caught up!</p>
-          )}
-        </ToDoResults>
+            ) : (
+              <p style={{ textAlign: "center" }}>You're all caught up!</p>
+            )}
+          </ToDoResults>
+        </List>
+        <AddToDo newToDo={NewToDo} />
       </Container>
     </>
   );

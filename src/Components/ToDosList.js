@@ -1,83 +1,79 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-import { MdDone } from "react-icons/md";
-import { useTransition, animated } from "react-spring";
-import DateForm from "./DateForm";
+import styled, { useTheme } from "styled-components";
 import { BiCalendarAlt } from "react-icons/bi";
 import { FaExclamation } from "react-icons/fa";
-
-const Row = styled.div`
-  width: 100%;
-  height: 80px;
-  border-bottom: 1px solid rgb(222, 222, 222);
-  background-color: rgb(255, 255, 255);
-  position: relative;
-
-  :hover {
-    background-color: rgb(250, 250, 250);
-  }
-
-  display: grid;
-  grid-template: 1fr / 1fr 6fr 2fr 2fr 1fr 0.5fr;
-  text-align: left;
-  align-items: center;
-  color: rgb(50, 50, 50);
-  grid-gap: 5px;
-
-  .cal {
-    font-size: 1.25rem;
-    color: rgb(222, 222, 222);
-  }
-
-  .cal:hover {
-    color: rgb(50, 50, 50);
-  }
-`;
-
-const Checkbox = styled.div`
-  border: 1px solid rgb(50, 50, 50);
-  margin-left: 10px;
-  text-align: center;
-  width: 35px;
-  height: 35px;
-  border-radius: 5px;
-
-  svg {
-    opacity: 0;
-    font-size: 2rem;
-  }
-
-  svg:hover {
-    opacity: 1;
-  }
-`;
+import { motion, AnimatePresence } from "framer-motion";
+import { Row } from "./Styled/Row.styled";
+import { Checkbox } from "./Styled/CheckBox.styled";
 
 const Desc = styled.div`
-  font-size: 1rem;
-  align-items: center;
-  margin: 0px;
-  margin-left: 0px;
+  font-size: 0.8rem;
+  margin-left: 3px;
   padding: 0px;
+  text-transform: capitalize;
+  align-self: end;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 1;
 `;
 
 const DueDate = styled.div`
-  text-align: center;
   font-size: 0.8rem;
+  grid-column-start: 4;
+  grid-column-end: 5;
+  grid-row-start: 1;
+  grid-row-end: 1;
+  align-self: end;
+  justify-self: center;
 `;
 
 const Tags = styled.div`
-  display: grid;
-  width: 100%;
-  grid-auto-flow: column;
+  display: flex;
+  text-align: center;
   font-size: 0.8rem;
-  color: #1cacf4;
+
+  grid-column-start: 2;
+  grid-column-end: -1;
+  grid-row-start: 2;
+  grid-row-end: 2;
+  align-self: start;
+
+  p {
+    margin: 0px;
+    margin-left: 3px;
+  }
 `;
 
-const MarkUrgent = styled.div``;
+const Cal = styled.div`
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 1;
+  align-self: end;
+  justify-self: end;
+`;
 
-const ToDoList = ({ toDos, completeToDo, addDate, toggleUrgent }) => {
-  const [active, setActive] = useState();
+const MarkUrgent = styled.div`
+  grid-column-start: 5;
+  grid-column-end: -1;
+  grid-row-start: 1;
+  grid-row-end: 1;
+  align-self: end;
+`;
 
+const ToDoList = (
+  {
+    toDos,
+    completeToDo,
+    toggleDate = (f) => {
+      return f;
+    },
+    toggleUrgent,
+    setActive,
+  },
+  props
+) => {
   const formatDate = (date) => {
     if (!date) return "";
 
@@ -92,18 +88,18 @@ const ToDoList = ({ toDos, completeToDo, addDate, toggleUrgent }) => {
     return date.toLocaleString("en-GB", options);
   };
 
-  const renderDateMenu = (id) => {
-    if (id === active)
-      return (
-        <DateForm addDate={addDate} setActive={setActive} itemId={active} />
-      );
-  };
+  const urgent = useTheme().urgent;
+  const inActive = useTheme().inActive;
 
-  return toDos.map((toDo, i) => {
+  return toDos.map((toDo) => {
     return (
-      <Row key={i}>
-        <Checkbox>
-          <MdDone
+      <AnimatePresence key={toDo.id}>
+        <Row
+          initial={{ height: 0, opacity: 0 }}
+          animate={{ height: 70, opacity: 1 }}
+          exit={{ height: 0, opacity: 0 }}
+        >
+          <Checkbox
             onClick={() => {
               completeToDo({
                 variables: {
@@ -111,39 +107,39 @@ const ToDoList = ({ toDos, completeToDo, addDate, toggleUrgent }) => {
                 },
               });
             }}
-          />
-        </Checkbox>
-        <Desc>{toDo.desc}</Desc>
-        <Tags>
-          {toDo.tags.map((tag, i) => (
-            <p key={i}>{tag}</p>
-          ))}
-        </Tags>
-        <DueDate>{formatDate(toDo.dueDate)}</DueDate>
-        <div
-          onClick={() => {
-            setActive(toDo.id);
-          }}
-        >
-          <BiCalendarAlt className='cal' />
-        </div>
-        {renderDateMenu(toDo.id)}
-        <MarkUrgent
-          onClick={() => {
-            toggleUrgent({
-              variables: {
-                id: toDo.id,
-              },
-            });
-          }}
-        >
-          <FaExclamation
-            style={{
-              color: toDo.urgent ? "rgb(255, 56, 56)" : "rgb(222, 222, 222)",
+          ></Checkbox>
+          <Desc>{toDo.desc}</Desc>
+          <Cal
+            onClick={() => {
+              setActive(toDo.id);
+              toggleDate();
             }}
-          />
-        </MarkUrgent>
-      </Row>
+          >
+            <BiCalendarAlt className='cal' />
+          </Cal>
+          <MarkUrgent
+            onClick={() => {
+              toggleUrgent({
+                variables: {
+                  id: toDo.id,
+                },
+              });
+            }}
+          >
+            <FaExclamation
+              style={{
+                color: toDo.urgent ? urgent : inActive,
+              }}
+            />
+          </MarkUrgent>
+          <Tags className='tag'>
+            {toDo.tags.map((tag, i) => (
+              <p key={i}>{tag}</p>
+            ))}
+          </Tags>
+          <DueDate>{formatDate(toDo.dueDate)}</DueDate>
+        </Row>
+      </AnimatePresence>
     );
   });
 };

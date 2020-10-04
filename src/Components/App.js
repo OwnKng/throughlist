@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import Pages from "../pages/index";
 import { GlobalStyles } from "./GlobalStyle";
+import { ThemeProvider } from "styled-components";
+import { lightTheme, darkTheme } from "./Theme";
+import { useDarkMode } from "./ThemeProvider";
 
 import {
   ApolloClient,
@@ -63,12 +66,16 @@ function App() {
     data: sorted,
   });
 
+  const { theme } = useDarkMode();
+
   return (
     <>
-      <ApolloProvider client={client}>
-        <GlobalStyles />
-        <Pages />
-      </ApolloProvider>
+      <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
+        <ApolloProvider client={client}>
+          <GlobalStyles />
+          <Pages />
+        </ApolloProvider>
+      </ThemeProvider>
     </>
   );
 }

@@ -1,37 +1,7 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
-
-const Form = styled.form`
-  width: 100%;
-  max-width: 720px;
-  margin: 0px auto;
-  display: grid;
-  grid-template: 1fr / 0.5fr 5fr;
-  background-color: white;
-  height: 70px;
-  border-bottom: 2px solid rgb(50, 50, 50);
-`;
-
-const Input = styled.input`
-  width: 100%;
-  height: 100%;
-  font-size: 1.5rem;
-  color: white;
-  border: none;
-
-  color: rgb(50, 50, 50);
-
-  :focus {
-    outline: none;
-  }
-`;
-
-const Plus = styled.div`
-  color: rgb(50, 50, 50);
-  margin-left: 5px;
-  padding: 15px;
-  font-size: 2rem;
-`;
+import { AiOutlineArrowUp } from "react-icons/ai";
+import { Form } from "./Styled/Form.styled";
 
 const AddToDo = ({ newToDo }) => {
   const [values, setValues] = useState({});
@@ -65,8 +35,7 @@ const AddToDo = ({ newToDo }) => {
           setValues({});
         }}
       >
-        <Plus>+</Plus>
-        <Input
+        <input
           id='todo'
           name='desc'
           autoComplete='off'
@@ -76,6 +45,9 @@ const AddToDo = ({ newToDo }) => {
           placeholder='Add a to do #productive #today'
         />
         <input autoComplete='on' type='hidden' value='something' />
+        <button type='submit'>
+          <AiOutlineArrowUp />
+        </button>
       </Form>
     </>
   );

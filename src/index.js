@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./Components/App";
-import ActiveProvider from "./Components/ActiveProvider";
+import ThemeProvider from "./Components/ThemeProvider";
 
 ReactDOM.render(
-  <ActiveProvider>
+  <ThemeProvider>
     <App />
-  </ActiveProvider>,
+  </ThemeProvider>,
   document.getElementById("root")
 );

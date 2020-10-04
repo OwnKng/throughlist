@@ -27,6 +27,7 @@ const Form = styled.form`
   }
 
   label {
+    display: block;
     font-size: 1;
   }
 

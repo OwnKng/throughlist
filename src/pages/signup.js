@@ -27,6 +27,7 @@ const Form = styled.form`
   }
 
   label {
+    display: block;
     font-size: 1;
   }
 
@@ -67,6 +68,12 @@ const Form = styled.form`
     text-decoration: none;
     background-color: rgb(2, 25, 61);
   }
+`;
+
+const Error = styled.p`
+  display: block;
+  font-weight: 100;
+  color: red;
 `;
 
 const SignUp = () => {
@@ -111,6 +118,11 @@ const SignUp = () => {
         }}
       >
         <h3>Create an account</h3>
+        {error && (
+          <Error>
+            Error signing up. If you already have an account, go to sign in
+          </Error>
+        )}
         <label htmlFor='email'>Email</label>
         <input id='email' name='email' type='email' onChange={onChange} />
         <label htmlFor='password'>Email</label>

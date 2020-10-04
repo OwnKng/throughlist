@@ -1,39 +1,18 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { Tag } from "./Styled/Tag.styled";
 
 const Tags = styled.div`
-  min-width: 300px;
-  align-items: flex-start;
-
-  p.active {
-    font-weight: bold;
-  }
-`;
-
-const Title = styled.div`
-  display: flex;
-  border-bottom: 2px solid rgb(50, 50, 50);
-  background-color: rgb(255, 255, 255);
-
-  h3 {
-    margin: 66px 0px 0px 0px;
-    padding-left: 10px;
-  }
-`;
-
-const Tag = styled.div`
   width: 100%;
-  border-bottom: 1px solid rgb(222, 222, 222);
-  background-color: white;
+  min-height: 2rem;
+  display: flex;
+  flex-wrap: wrap;
   place-items: center;
+  flex-basis: 1;
+  gap: 5px;
 
-  p {
-    margin: 0px;
-    padding: 10px 0px 10px 10px;
-    font-size: 1rem;
-  }
-
-  p.active {
+  .title {
+    text-transform: uppercase;
     font-weight: bold;
   }
 `;
@@ -48,20 +27,25 @@ const TagsList = ({ tags, activeTag, setActiveTag }) => {
   };
 
   return (
-    <Tags>
-      <Title>
-        <h3>Tags</h3>
-      </Title>
-      {tags.length ? (
-        tags.map((tag, i) => (
-          <Tag key={i} onClick={() => togggleTags(tag)}>
-            <p className={`${isActive(tag)}`}>{tag}</p>
-          </Tag>
-        ))
-      ) : (
-        <p>Add tags using #</p>
-      )}
-    </Tags>
+    <>
+      <Tags>
+        <span className='title'>Tags</span>
+        {tags.length ? (
+          tags.map((tag, i) => (
+            <Tag className='tag' key={i}>
+              <span
+                onClick={() => togggleTags(tag)}
+                className={`${isActive(tag)}`}
+              >
+                {tag}
+              </span>
+            </Tag>
+          ))
+        ) : (
+          <span>Add tags using #</span>
+        )}
+      </Tags>
+    </>
   );
 };
 

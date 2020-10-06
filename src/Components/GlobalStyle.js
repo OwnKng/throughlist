@@ -5,7 +5,7 @@ export const GlobalStyles = createGlobalStyle`
 html, body {
     margin: 0;
     padding: 0;
-    height: 100vh;
+    max-height: 100vh;
   }
 
   *, *::after, *::before {
@@ -17,7 +17,6 @@ html, body {
     color: ${({ theme }) => theme.text};
     font-family: 'Roboto', sans-serif;
     font-size: 12px;
-    transition: all 0.25s linear;
  }
 
  input {

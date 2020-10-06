@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const Checkbox = styled.div`
   border: 1px solid ${({ theme }) => theme.border};
-  margin-left: 10px;
   text-align: center;
   width: 35px;
   height: 35px;

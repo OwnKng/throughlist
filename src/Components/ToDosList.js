@@ -13,19 +13,19 @@ const Desc = styled.div`
   text-transform: capitalize;
   align-self: end;
   grid-column-start: 2;
-  grid-column-end: 3;
+  grid-column-end: 4;
   grid-row-start: 1;
   grid-row-end: 1;
 `;
 
 const DueDate = styled.div`
   font-size: 0.8rem;
-  grid-column-start: 4;
-  grid-column-end: 5;
-  grid-row-start: 1;
-  grid-row-end: 1;
-  align-self: end;
-  justify-self: center;
+  grid-column-start: 2;
+  grid-column-end: -1;
+  grid-row-start: 3;
+  grid-row-end: 3;
+  align-self: center;
+  margin-left: 3px;
 `;
 
 const Tags = styled.div`
@@ -37,9 +37,9 @@ const Tags = styled.div`
   grid-column-end: -1;
   grid-row-start: 2;
   grid-row-end: 2;
-  align-self: start;
+  align-self: center;
 
-  p {
+  span {
     margin: 0px;
     margin-left: 3px;
   }
@@ -52,26 +52,20 @@ const Cal = styled.div`
   grid-row-end: 1;
   align-self: end;
   justify-self: end;
+  font-size: 1rem;
 `;
 
 const MarkUrgent = styled.div`
-  grid-column-start: 5;
+  grid-column-start: 4;
   grid-column-end: -1;
   grid-row-start: 1;
   grid-row-end: 1;
-  align-self: end;
+  justify-self: end;
+  font-size: 1rem;
 `;
 
 const ToDoList = (
-  {
-    toDos,
-    completeToDo,
-    toggleDate = (f) => {
-      return f;
-    },
-    toggleUrgent,
-    setActive,
-  },
+  { toDos, completeToDo, toggleDate, toggleUrgent, setActive },
   props
 ) => {
   const formatDate = (date) => {
@@ -96,7 +90,7 @@ const ToDoList = (
       <AnimatePresence key={toDo.id}>
         <Row
           initial={{ height: 0, opacity: 0 }}
-          animate={{ height: 70, opacity: 1 }}
+          animate={{ height: "auto", opacity: 1 }}
           exit={{ height: 0, opacity: 0 }}
         >
           <Checkbox
@@ -134,7 +128,7 @@ const ToDoList = (
           </MarkUrgent>
           <Tags className='tag'>
             {toDo.tags.map((tag, i) => (
-              <p key={i}>{tag}</p>
+              <span key={i}>{tag}</span>
             ))}
           </Tags>
           <DueDate>{formatDate(toDo.dueDate)}</DueDate>

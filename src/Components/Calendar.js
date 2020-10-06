@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import { AiOutlineArrowUp } from "react-icons/ai";
 import { AiOutlineArrowDown } from "react-icons/ai";
 import { motion, AnimatePresence } from "framer-motion";
+import { Cal, Title, Controls } from "./Styled/Calendar.styled";
 
 const daysInMonth = (month, year) => {
   return new Date(year, month, 0).getDate();
@@ -17,78 +18,13 @@ const getTidyDate = (todayPlus = 0) => {
   return `${yyyy}-${mm}-${dd}`;
 };
 
-const Cal = styled(motion.div)`
-  width: 90%;
-  max-width: 400px;
-  position: fixed;
-  bottom: 120px;
-  left: 50%;
-  transform: translate3d(-50%, 0, 0);
-  background-color: rgb(255, 255, 255);
-  border: 1px solid rgb(220, 220, 220);
-  overflow: hidden;
-  color: rgb(100, 100, 100);
-  border-radius: 5px;
-`;
-
-const Title = styled.div`
-  display: grid;
-  font-size: 1rem;
-  justify-items: center;
-  font-weight: bold;
-`;
-
-const Controls = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  justify-content: space-around;
-  justify-items: center;
-  font-size: 0.8rem;
-  border-bottom: 1px solid rgb(220, 220, 220);
-  border-top: 1px solid rgb(220, 220, 220);
-
-  .today {
-    grid-column-start: 1;
-    grid-column-end: 3;
-    text-align: center;
-    width: 100%;
-    font-size: 1rem;
-    border-bottom: 1px solid rgb(220, 220, 220);
-  }
-
-  .today:hover {
-    background: rgb(240, 240, 240);
-  }
-
-  .tomorrow {
-    grid-column-start: 3;
-    grid-column-end: 5;
-    text-align: center;
-    width: 100%;
-    font-size: 1rem;
-    border-bottom: 1px solid rgb(220, 220, 220);
-    border-left: 1px solid rgb(220, 220, 220);
-  }
-
-  .tomorrow:hover {
-    background: rgb(240, 240, 240);
-  }
-
-  svg {
-    font-size: 1rem;
-  }
-
-  svg:hover {
-    background: rgb(240, 240, 240);
-  }
-`;
-
 const Calendar = ({ activeToDo, toggleDate, addDate }) => {
   const [month, setMonth] = useState(new Date().getMonth() + 1);
   const [year, setYear] = useState(new Date().getFullYear());
 
   let dayOfMonth = new Date().getDate();
   if (month != new Date().getMonth() + 1) dayOfMonth = 0;
+  const highlight = useTheme().hover;
 
   const Days = styled.div`
     display: grid;
@@ -101,11 +37,11 @@ const Calendar = ({ activeToDo, toggleDate, addDate }) => {
     overflow: hidden;
 
     .day:hover {
-      background: rgb(240, 240, 240);
+      background: ${highlight};
     }
 
     .day:nth-child(${dayOfMonth}) {
-      background: rgb(240, 240, 240);
+      background: ${highlight};
     }
   `;
 
@@ -194,12 +130,7 @@ const Calendar = ({ activeToDo, toggleDate, addDate }) => {
 
   return (
     <AnimatePresence>
-      <Cal
-        ref={node}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-      >
+      <Cal ref={node} initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
         <Title>Set Due Date</Title>
         <motion.div initial={{ y: 50 }} animate={{ y: 0 }} exit={{ y: 30 }}>
           <Controls>

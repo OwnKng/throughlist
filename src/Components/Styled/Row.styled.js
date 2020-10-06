@@ -25,3 +25,14 @@ export const Row = styled(motion.div)`
     color: ${({ theme }) => theme.iconActive};
   }
 `;
+
+export const DueDate = styled.div`
+  font-size: 0.8rem;
+  color: ${({ theme }) => theme.teritaryText};
+  grid-column-start: 2;
+  grid-column-end: -1;
+  grid-row-start: 2;
+  grid-row-end: 2;
+  align-self: center;
+  margin-left: 3px;
+`;

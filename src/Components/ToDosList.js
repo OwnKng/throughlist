@@ -3,7 +3,7 @@ import styled, { useTheme } from "styled-components";
 import { BiCalendarAlt } from "react-icons/bi";
 import { FaExclamation } from "react-icons/fa";
 import { AnimatePresence } from "framer-motion";
-import { Row } from "./Styled/Row.styled";
+import { Row, DueDate } from "./Styled/Row.styled";
 import { Checkbox } from "./Styled/CheckBox.styled";
 
 const Desc = styled.div`
@@ -18,16 +18,6 @@ const Desc = styled.div`
   grid-row-end: 1;
 `;
 
-const DueDate = styled.div`
-  font-size: 0.8rem;
-  grid-column-start: 2;
-  grid-column-end: -1;
-  grid-row-start: 3;
-  grid-row-end: 3;
-  align-self: center;
-  margin-left: 3px;
-`;
-
 const Tags = styled.div`
   display: flex;
   text-align: center;
@@ -35,8 +25,8 @@ const Tags = styled.div`
 
   grid-column-start: 2;
   grid-column-end: -1;
-  grid-row-start: 2;
-  grid-row-end: 2;
+  grid-row-start: 3;
+  grid-row-end: 3;
   align-self: center;
 
   span {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Pages from "../pages/index";
 import { GlobalStyles } from "./GlobalStyle";
 import { ThemeProvider } from "styled-components";

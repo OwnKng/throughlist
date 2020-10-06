@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import styled, { useTheme } from "styled-components";
 import { BiCalendarAlt } from "react-icons/bi";
 import { FaExclamation } from "react-icons/fa";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import { Row } from "./Styled/Row.styled";
 import { Checkbox } from "./Styled/CheckBox.styled";
 

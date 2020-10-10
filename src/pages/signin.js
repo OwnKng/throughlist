@@ -1,80 +1,10 @@
 import React, { useState } from "react";
-import { useMutation, useApolloClient, gql, useQuery } from "@apollo/client";
+import { useMutation, useApolloClient, useQuery } from "@apollo/client";
 import { useHistory } from "react-router-dom";
-import styled from "styled-components";
-
-const SIGNIN_USER = gql`
-  mutation signIn($email: String!, $password: String!) {
-    signIn(email: $email, password: $password)
-  }
-`;
-
-const IS_LOGGED_IN = gql`
-  {
-    isLoggedIn @client
-  }
-`;
-
-const Form = styled.form`
-  max-width: 720px;
-  margin: 0px auto;
-  background-color: white;
-  padding: 10px 10px;
-  height: 450px;
-
-  h3 {
-    margin-bottom: 40px;
-  }
-
-  label {
-    display: block;
-    font-size: 1;
-  }
-
-  input {
-    display: block;
-    width: 80%;
-    height: 60px;
-    font-size: 1.25rem;
-    color: white;
-    border: none;
-    border-bottom: 1px solid rgb(222, 222, 222);
-
-    margin: 0px 0px 30px 0px;
-
-    color: rgb(50, 50, 50);
-
-    :focus {
-      outline: none;
-    }
-  }
-
-  p {
-    display: inline;
-    font-weight: bold;
-    margin-right: 50px;
-  }
-
-  svg {
-    font-size: 1rem;
-  }
-
-  button {
-    border-radius: 5px;
-    height: 40px;
-    border: none;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    background-color: rgb(2, 25, 61);
-  }
-`;
-
-const Error = styled.p`
-  display: block;
-  font-weight: 100;
-  color: red;
-`;
+import { SIGNIN_USER } from "../Graphql/mutation";
+import { IS_LOGGED_IN } from "../Graphql/query";
+import { SignInForm } from "../Components/Styled/SignIn.styled";
+import { motion } from "framer-motion";
 
 const SignIn = () => {
   const [values, setValues] = useState();
@@ -92,7 +22,7 @@ const SignIn = () => {
   const { data } = useQuery(IS_LOGGED_IN);
   if (data.isLoggedIn) history.push("/");
 
-  const [signIn, { loading, error }] = useMutation(SIGNIN_USER, {
+  const [signIn, { error }] = useMutation(SIGNIN_USER, {
     onCompleted: (data) => {
       localStorage.setItem("token", data.signIn);
       client.writeQuery({
@@ -106,8 +36,8 @@ const SignIn = () => {
   });
 
   return (
-    <>
-      <Form
+    <SignInForm>
+      <form
         onSubmit={(event) => {
           event.preventDefault();
           signIn({
@@ -117,17 +47,23 @@ const SignIn = () => {
           });
         }}
       >
-        <h3>Sign in</h3>
+        <h2>Sign in</h2>
         {error && (
-          <Error>Error signing in. Please check password and try again</Error>
+          <motion.div
+            className='error'
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+          >
+            Error signing in. Please check your credentials and try again
+          </motion.div>
         )}
         <label htmlFor='email'>Email</label>
         <input id='email' name='email' type='email' onChange={onChange} />
         <label htmlFor='pwd'>Password</label>
         <input id='pwd' name='password' type='password' onChange={onChange} />
         <button>Sign in</button>
-      </Form>
-    </>
+      </form>
+    </SignInForm>
   );
 };
 

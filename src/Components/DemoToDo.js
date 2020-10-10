@@ -54,10 +54,7 @@ const MarkUrgent = styled.div`
   font-size: 1.1rem;
 `;
 
-const ToDoList = (
-  { toDos, completeToDo, toggleDate, toggleUrgent, setActive },
-  props
-) => {
+const ToDoList = ({ toDos }) => {
   const formatDate = (date) => {
     if (!date) return "";
 
@@ -80,36 +77,15 @@ const ToDoList = (
       <AnimatePresence key={toDo.id}>
         <Row
           initial={{ height: 0, opacity: 0 }}
-          animate={{ height: "auto", opacity: 1 }}
+          animate={{ height: "100px", opacity: 1 }}
           exit={{ height: 0, opacity: 0 }}
         >
-          <Checkbox
-            onClick={() => {
-              completeToDo({
-                variables: {
-                  id: toDo.id,
-                },
-              });
-            }}
-          ></Checkbox>
+          <Checkbox></Checkbox>
           <Desc>{toDo.desc}</Desc>
-          <Cal
-            onClick={() => {
-              setActive(toDo.id);
-              toggleDate();
-            }}
-          >
+          <Cal>
             <BiCalendarAlt className='cal' />
           </Cal>
-          <MarkUrgent
-            onClick={() => {
-              toggleUrgent({
-                variables: {
-                  id: toDo.id,
-                },
-              });
-            }}
-          >
+          <MarkUrgent>
             <FaExclamation
               style={{
                 color: toDo.urgent ? urgent : inActive,

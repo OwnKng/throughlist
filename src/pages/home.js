@@ -6,6 +6,17 @@ import { Description } from "../Components/Styled/Description.styled";
 import AddToDo from "../Components/AddToDo";
 import { ADD_TODO } from "../Graphql/mutation";
 import { IS_LOGGED_IN, GET_TODOS } from "../Graphql/query";
+import { demoToDos } from "../demotodos";
+import DemoToDo from "../Components/DemoToDo";
+import styled from "styled-components";
+import { Button } from "../Components/Styled/Button.styled";
+import { ActionPanel } from "../Components/Styled/ActionPanel.styled";
+
+const DemoList = styled.div`
+  display: grid;
+  grid-gap: 5px;
+  height: 300px;
+`;
 
 const Home = () => {
   const [ToDosData, setToDos] = useState([]);
@@ -34,11 +45,25 @@ const Home = () => {
         </>
       ) : (
         <Description>
-          <h1>Welcome to To Do</h1>
-          <h3>Productivity, here we come....</h3>
-          <Link to='/signin'>Please sign in to view your tasks</Link>
-          New to To Do? <Link to='/signup'>Sign up</Link>{" "}
-          <button>Sign in</button>
+          <h1 style={{ textAlign: "center" }}>Welcome to ThroughList</h1>
+          <h3 style={{ textAlign: "center" }}>The Powerful to Do List App</h3>
+          <DemoList>
+            <DemoToDo toDos={demoToDos}></DemoToDo>
+          </DemoList>
+          <ActionPanel>
+            <div className='signUp'>
+              New to ThroughList?
+              <Button>
+                <Link to='/signup'>Sign up</Link>{" "}
+              </Button>
+            </div>
+            <div className='signIn'>
+              Already got an account?
+              <Button>
+                <Link to='/signin'>Sign in</Link>{" "}
+              </Button>
+            </div>
+          </ActionPanel>
         </Description>
       )}
     </>

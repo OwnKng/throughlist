@@ -2,11 +2,14 @@ import React from "react";
 import Navigation from "./Navigation";
 import { HeaderBar } from "./Styled/HeaderBar.styled";
 import { LogoText } from "./Styled/LogoText.styled";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
     <HeaderBar>
-      <LogoText>Throughlist</LogoText>
+      <Link to='/' style={{ textDecoration: "none" }}>
+        <LogoText>Throughlist</LogoText>
+      </Link>
       <Navigation />
     </HeaderBar>
   );

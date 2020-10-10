@@ -4,10 +4,13 @@ import { motion } from "framer-motion";
 export const Row = styled(motion.div)`
   width: 100%;
   padding: 0.5rem;
+  border-radius: 10px;
   background: ${({ theme }) => theme.foreground};
 
-  :hover {
-    background-color: ${({ theme }) => theme.hover};
+  @media only screen and (min-width: 600px) {
+    :hover {
+      background-color: ${({ theme }) => theme.hover};
+    }
   }
 
   display: grid;
@@ -26,7 +29,7 @@ export const Row = styled(motion.div)`
 `;
 
 export const DueDate = styled.div`
-  font-size: 0.8rem;
+  font-size: 1rem;
   color: ${({ theme }) => theme.teritaryText};
   grid-column-start: 2;
   grid-column-end: -1;

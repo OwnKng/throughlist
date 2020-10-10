@@ -11,13 +11,12 @@ html, body {
     box-sizing: border-box;
   }
 
-  user-select: none;
-
   body {
     background: ${({ theme }) => theme.background};
     color: ${({ theme }) => theme.text};
     font-family: 'Roboto', sans-serif;
     font-size: 12px;
+    user-select: none;
  }
 
  input {

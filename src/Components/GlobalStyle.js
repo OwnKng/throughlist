@@ -11,6 +11,8 @@ html, body {
     box-sizing: border-box;
   }
 
+  user-select: none;
+
   body {
     background: ${({ theme }) => theme.background};
     color: ${({ theme }) => theme.text};

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { gql, useQuery } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
@@ -51,7 +51,7 @@ const Navigation = () => {
               history.go();
             }}
           >
-            <p>Log out</p>
+            Log out
           </li>
         ) : (
           <div />
@@ -62,20 +62,3 @@ const Navigation = () => {
 };
 
 export default Navigation;
-
-/*
-
-padding: 1em; 
-background-color: rgb(255, 255, 255);
-@media (max-width: 700px) {
-  padding-top 64px;
-}
-
-@media (min-width: 700px) {
-  position: fixed;
-  width: 220px;
-  height: calc(100% - 64px);
-  overflow-y: scroll;
-};
-
-*/

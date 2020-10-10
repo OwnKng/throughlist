@@ -5,7 +5,6 @@ export const GlobalStyles = createGlobalStyle`
 html, body {
     margin: 0;
     padding: 0;
-    max-height: 100vh;
   }
 
   *, *::after, *::before {
@@ -33,6 +32,10 @@ html, body {
 
  .tag {
    color: ${({ theme }) => theme.secondaryText};
+ }
+
+ main {
+  position: relative;
  }
 
 

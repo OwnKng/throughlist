@@ -1,20 +1,31 @@
 import styled from "styled-components";
 
-export const Form = styled.form`
-  grid-area: input;
-  width: 100%;
+export const Form = styled.div`
+  position: fixed;
+  min-height: 80px;
+  bottom: 0px;
+  height: 90px;
+  left: 50%;
+  transform: translate3d(-50%, 0, 0);
+  max-width: 675px;
+  width: 95%;
   display: flex;
-  background: ${({ theme }) => theme.foreground};
-  height: 70px;
-  border-radius: 10px;
-
-  align-self: end;
-  justify-content: space-around;
   place-items: center;
+  background: ${({ theme }) => theme.background};
+
+  form {
+    background: ${({ theme }) => theme.foreground};
+    border-radius: 10px;
+    padding: 0.5rem;
+    width: 100%;
+    height: 70px;
+    display: flex;
+    place-items: center;
+  }
 
   input {
-    height: 90%;
-    width: 80%;
+    height: 100%;
+    width: 85%;
     font-size: 1.5em;
     border: none;
     background: ${({ theme }) => theme.foreground};

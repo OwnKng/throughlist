@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useQuery, gql, useMutation, useApolloClient } from "@apollo/client";
 
 import ToDosList from "./ToDosList";
-import AddToDo from "./AddToDo";
 import styled from "styled-components";
 import ToDoListHeader from "./ToDoListHeader";
 import TagsList from "./TagsList";
@@ -22,16 +21,6 @@ const GET_TODOS = gql`
       }
       cursor
       hasNextPage
-    }
-  }
-`;
-
-const ADD_TODO = gql`
-  mutation AddToDo($desc: String!, $dueDate: Date, $tags: [String]) {
-    addToDo(desc: $desc, dueDate: $dueDate, tags: $tags) {
-      desc
-      dueDate
-      completed
     }
   }
 `;
@@ -62,18 +51,11 @@ const IS_SORTED = gql`
 
 const Container = styled.div`
   max-width: 720px;
-  display: grid;
-  height: calc(100vh - 100px);
-  grid-template-rows: 4fr 1fr;
-  grid-template-areas:
-    "list"
-    "input";
   margin: 0px auto;
   padding: 0em 2em;
 `;
 
 const List = styled.div`
-  grid-area: list;
   height: 100%;
 `;
 
@@ -99,12 +81,6 @@ const ToDos = () => {
     notifyOnNetworkStatusChange: true,
     onCompleted: (data) => {
       setSorted(JSON.parse(data.isSorted));
-    },
-  });
-
-  const [NewToDo] = useMutation(ADD_TODO, {
-    onCompleted: (data) => {
-      refetch();
     },
   });
 
@@ -200,10 +176,11 @@ const ToDos = () => {
             )}
           </ToDoResults>
         </List>
-        <AddToDo newToDo={NewToDo} />
       </Container>
     </>
   );
 };
 
 export default ToDos;
+
+//

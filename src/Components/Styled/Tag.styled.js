@@ -7,10 +7,6 @@ export const Tag = styled.div`
   padding: 3px;
   border-radius: 5px;
 
-  :hover {
-    font-weight: bold;
-  }
-
   span {
     padding: 5px;
   }

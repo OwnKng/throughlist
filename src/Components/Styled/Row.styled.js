@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 export const Row = styled(motion.div)`
   width: 100%;
   padding: 0.5rem;
-  border-bottom: 1px solid ${({ theme }) => theme.border};
   background: ${({ theme }) => theme.foreground};
 
   :hover {

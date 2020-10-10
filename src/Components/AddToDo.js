@@ -1,5 +1,4 @@
 import React, { useState, useRef } from "react";
-import styled from "styled-components";
 import { AiOutlineArrowUp } from "react-icons/ai";
 import { Form } from "./Styled/Form.styled";
 
@@ -20,8 +19,8 @@ const AddToDo = ({ newToDo }) => {
   };
 
   return (
-    <>
-      <Form
+    <Form>
+      <form
         autoComplete='off'
         onSubmit={(event) => {
           event.preventDefault();
@@ -48,8 +47,8 @@ const AddToDo = ({ newToDo }) => {
         <button type='submit'>
           <AiOutlineArrowUp />
         </button>
-      </Form>
-    </>
+      </form>
+    </Form>
   );
 };
 

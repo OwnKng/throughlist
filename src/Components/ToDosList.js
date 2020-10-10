@@ -75,13 +75,29 @@ const ToDoList = (
   const urgent = useTheme().urgent;
   const inActive = useTheme().inActive;
 
+  const animation = {
+    hidden: {
+      height: 0,
+      opacity: 0,
+    },
+    visible: {
+      height: "auto",
+      opacity: 1,
+    },
+    exit: {
+      height: 0,
+      opacity: 0,
+    },
+  };
+
   return toDos.map((toDo) => {
     return (
       <AnimatePresence key={toDo.id}>
         <Row
-          initial={{ height: 0, opacity: 0 }}
-          animate={{ height: "auto", opacity: 1 }}
-          exit={{ height: 0, opacity: 0 }}
+          variants={animation}
+          initial='hidden'
+          animate='visible'
+          exit='exit'
         >
           <Checkbox
             onClick={() => {

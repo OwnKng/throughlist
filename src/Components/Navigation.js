@@ -3,6 +3,8 @@ import { gql, useQuery } from "@apollo/client";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { useDarkMode } from "./ThemeProvider";
+import { BsSun } from "react-icons/bs";
+import { BsMoon } from "react-icons/bs";
 
 const IS_LOGGED_IN = gql`
   {
@@ -27,18 +29,24 @@ const NavList = styled.ul`
   text-align: right;
   list-style: none;
   line-height: 2;
+
+  svg {
+    font-size: 1.2rem;
+  }
 `;
 
 const Navigation = () => {
   const { data, client } = useQuery(IS_LOGGED_IN);
   let history = useHistory();
 
-  const { toggleTheme } = useDarkMode();
+  const { theme, toggleTheme } = useDarkMode();
 
   return (
     <Nav>
       <NavList>
-        <li onClick={() => toggleTheme()}>Toggle Theme</li>
+        <li onClick={() => toggleTheme()}>
+          {theme === "light" ? <BsMoon /> : <BsSun />}
+        </li>
         {data.isLoggedIn ? (
           <li
             onClick={() => {

@@ -5,6 +5,7 @@ import { SIGNIN_USER } from "../Graphql/mutation";
 import { IS_LOGGED_IN } from "../Graphql/query";
 import { SignInForm } from "../Components/Styled/SignIn.styled";
 import { motion } from "framer-motion";
+import { Button } from "../Components/Styled/Button.styled";
 
 const SignIn = () => {
   const [values, setValues] = useState();

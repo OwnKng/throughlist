@@ -27,10 +27,6 @@ html, body {
    color: ${({ theme }) => theme.text}
  }
 
- li:hover {
-  color: ${({ theme }) => theme.textHover}
- }
-
  .tag {
    color: ${({ theme }) => theme.secondaryText};
  }

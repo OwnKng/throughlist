@@ -13,5 +13,5 @@ export const HeaderBar = styled.header`
   border-bottom: 1px solid ${({ theme }) => theme.border}
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.25);
   z-index: 1;
-  background: ${({ theme }) => theme.header};
+  background: ${({ theme }) => theme.foreground};
 `;

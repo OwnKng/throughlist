@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const SignInForm = styled.div`
   max-width: 720px;
+  border-radius: 15px;
   width: 90%;
   margin: 10px auto;
   background-color: ${({ theme }) => theme.foreground};
@@ -46,13 +47,14 @@ export const SignInForm = styled.div`
   }
 
   button {
-    border-radius: 5px;
+    border-radius: 15px;
     height: 40px;
     border: none;
     color: black;
     padding: 0px 10px;
     text-align: center;
-    text-decoration: none;
-    background-color: ${({ theme }) => theme.button};
+    background: none;
+    border: 1px solid ${({ theme }) => theme.secondaryText};
+    color: ${({ theme }) => theme.secondaryText};
   }
 `;

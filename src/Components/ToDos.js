@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useQuery, gql, useMutation, useApolloClient } from "@apollo/client";
+import { useQuery, useMutation, useApolloClient } from "@apollo/client";
+import { IS_SORTED } from "../Graphql/query";
+import { COMPLETE_TODO, ADD_DATE, TOGGLE_URGENT } from "../Graphql/mutation";
 
 import ToDosList from "./ToDosList";
 import styled from "styled-components";
@@ -7,47 +9,6 @@ import ToDoListHeader from "./ToDoListHeader";
 import TagsList from "./TagsList";
 import Calendar from "./Calendar";
 import { ToDoResults } from "./Styled/ToDoResults";
-
-const GET_TODOS = gql`
-  query ToDoFeed($cursor: String) {
-    toDoFeed(cursor: $cursor) {
-      toDos {
-        id
-        desc
-        dueDate
-        completed
-        urgent
-        tags
-      }
-      cursor
-      hasNextPage
-    }
-  }
-`;
-
-const COMPLETE_TODO = gql`
-  mutation CompleteToDo($id: ID!) {
-    completeToDo(id: $id)
-  }
-`;
-
-const ADD_DATE = gql`
-  mutation AddDate($id: ID!, $date: Date!) {
-    addDate(id: $id, date: $date)
-  }
-`;
-
-const TOGGLE_URGENT = gql`
-  mutation ToggleUrgent($id: ID!) {
-    toggleUrgent(id: $id)
-  }
-`;
-
-const IS_SORTED = gql`
-  {
-    isSorted @client
-  }
-`;
 
 const Container = styled.div`
   max-width: 720px;
@@ -59,8 +20,7 @@ const List = styled.div`
   height: 100%;
 `;
 
-const ToDos = () => {
-  const [ToDosData, setToDos] = useState([]);
+const ToDos = ({ ToDosData, refetch }) => {
   const client = useApolloClient();
 
   const [tags, setTags] = useState([]);
@@ -68,16 +28,9 @@ const ToDos = () => {
   const [openDate, toggleDate] = useState(false);
   const [activeToDo, setActive] = useState();
 
-  const { data, loading, error, refetch, fetchmore } = useQuery(GET_TODOS, {
-    notifyOnNetworkStatusChange: true,
-    onCompleted: (data) => {
-      setToDos(data.toDoFeed.toDos);
-    },
-  });
-
   const [isSorted, setSorted] = useState(false);
 
-  const { sorted } = useQuery(IS_SORTED, {
+  useQuery(IS_SORTED, {
     notifyOnNetworkStatusChange: true,
     onCompleted: (data) => {
       setSorted(JSON.parse(data.isSorted));

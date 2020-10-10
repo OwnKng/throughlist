@@ -7,7 +7,6 @@ export const ListHeader = styled.div`
   place-items: center;
   justify-content: space-between;
   background: ${({ theme }) => theme.foreground};
-  border-bottom: 1px solid ${({ theme }) => theme.border};
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   padding: 10px;

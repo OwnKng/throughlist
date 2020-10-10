@@ -1,39 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useApolloClient, gql, useQuery, useMutation } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import ToDos from "../Components/ToDos.js";
 import { Description } from "../Components/Styled/Description.styled";
 import AddToDo from "../Components/AddToDo";
-
-const IS_LOGGED_IN = gql`
-  {
-    isLoggedIn @client
-  }
-`;
-
-const ADD_TODO = gql`
-  mutation AddToDo($desc: String!, $dueDate: Date, $tags: [String]) {
-    addToDo(desc: $desc, dueDate: $dueDate, tags: $tags) {
-      desc
-      dueDate
-      completed
-    }
-  }
-`;
+import { ADD_TODO } from "../Graphql/mutation";
+import { IS_LOGGED_IN, GET_TODOS } from "../Graphql/query";
 
 const Home = () => {
-  const client = useApolloClient();
+  const [ToDosData, setToDos] = useState([]);
+
+  const { refetch } = useQuery(GET_TODOS, {
+    notifyOnNetworkStatusChange: true,
+    onCompleted: (data) => {
+      setToDos(data.toDoFeed.toDos);
+    },
+  });
+
   const { data } = useQuery(IS_LOGGED_IN);
 
   const [NewToDo] = useMutation(ADD_TODO, {
-    onCompleted: (data) => {},
+    onCompleted: (data) => {
+      refetch();
+    },
   });
 
   return (
     <>
       {data.isLoggedIn ? (
         <>
-          <ToDos />
+          <ToDos ToDosData={ToDosData} refetch={refetch} />
           <AddToDo newToDo={NewToDo} />
         </>
       ) : (

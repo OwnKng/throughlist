@@ -21,7 +21,6 @@ export const Form = styled.div`
     height: 70px;
     display: flex;
     place-items: center;
-    border: 1px solid ${({ theme }) => theme.inputHover};
   }
 
   input {
@@ -40,6 +39,7 @@ export const Form = styled.div`
 
   button {
     color: rgb(50, 50, 50);
+    max-width: 80px;
     font-size: 2rem;
     background: ${({ theme }) => theme.button};
     border: none;

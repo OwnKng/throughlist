@@ -13,7 +13,7 @@ import { ToDoResults } from "./Styled/ToDoResults";
 const Container = styled.div`
   max-width: 720px;
   margin: 0px auto;
-  padding: 0em 2em;
+  padding: 0em 1em;
 `;
 
 const List = styled.div`

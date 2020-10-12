@@ -35,7 +35,7 @@ const SignUp = () => {
 
   const [signUp, { loading, error }] = useMutation(SIGNUP_USER, {
     onCompleted: (data) => {
-      localStorage.setItem("token", data.signIn);
+      localStorage.setItem("token", data.signUp);
       client.writeQuery({
         query: IS_LOGGED_IN,
         data: {

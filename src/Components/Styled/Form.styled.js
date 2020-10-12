@@ -21,6 +21,7 @@ export const Form = styled.div`
     height: 70px;
     display: flex;
     place-items: center;
+    border: 1px solid ${({ theme }) => theme.inputHover};
   }
 
   input {
